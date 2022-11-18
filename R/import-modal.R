@@ -209,7 +209,8 @@ import_ui <- function(id,
 import_server <- function(id,
                           validation_opts = NULL,
                           allowed_status = c("OK", "Failed", "Error"),
-                          return_class = c("data.frame", "data.table", "tbl_df")) {
+                          return_class = c("data.frame", "data.table", "tbl_df"),
+                         read_funs) {
   allowed_status <- match.arg(allowed_status, several.ok = TRUE)
   moduleServer(
     id,
@@ -246,7 +247,8 @@ import_server <- function(id,
         id = "file",
         trigger_return = "change",
         btn_show_data = FALSE,
-        reset = reactive(input$hidden)
+        reset = reactive(input$hidden),
+        read_funs = read_funs
       )
       from_copypaste <- import_copypaste_server(
         id = "copypaste",
